@@ -22,7 +22,7 @@ app.use(morgan("dev"));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors({ origin: 'http://localhost:5005' }));
+app.use(cors({ origin: 'http://localhost:5173' }));
 
 // ROUTES - https://expressjs.com/en/starter/basic-routing.html
 // Devs Team - Start working on the routes here:
@@ -32,7 +32,7 @@ app.get("/docs", (req, res) => {
   res.sendFile(__dirname + "/views/docs.html");
 });
 
-app.get("/api/students",cors(),(req, res, next)=>{
+app.get("/api/students",(req, res, next)=>{
 res.json(students)
 });
 
