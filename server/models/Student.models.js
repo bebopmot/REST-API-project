@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Cohort = require("./Cohort.models");
 const Schema = mongoose.Schema;
 
 const studentsSchema = new Schema({
@@ -13,6 +14,11 @@ program: String,
 background: String,
 image: String,
 projects:  Array,
+ cohort: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "cohort",
+        required: true
+    }
 
 
   /*title: String,
