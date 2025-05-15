@@ -75,7 +75,6 @@ app.get("/api/students/cohort/:cohortId", (req, res) => {
     .populate("cohort")
     .then((students) => {
       res.json(students);
-      console.log(students);
     })
     .catch((error) => {
       console.log("There was an error getting this specific student", error);
@@ -87,7 +86,7 @@ app.get("/api/students/cohort/:cohortId", (req, res) => {
 
 app.post("/api/students", (req, res) => {
   const newStudent = req.body;
-  Recipe.create(newStudent)
+  Student.create(newStudent)
     .then((studentFromDB) => {
       res.status(201).json(studentFromDB);
     })
@@ -103,7 +102,7 @@ app.put("/api/students/:studentId", (req, res) => {
   const { studentId } = req.params;
   const newDetails = req.body;
 
-  Recipe.findByIdAndUpdate(studentId, newDetails, { new: true })
+  Student.findByIdAndUpdate(studentId, newDetails, { new: true })
     .then((student) => {
       res.status(200).json(student);
     })
@@ -117,7 +116,7 @@ app.put("/api/students/:studentId", (req, res) => {
 
 app.delete("/api/students/:studentId", (req, res) => {
   const { studentId } = req.params;
-  Recipe.findByIdAndDelete(studentId)
+  Student.findByIdAndDelete(studentId)
     .then((response) => {
       res.json(response);
     })
@@ -145,7 +144,7 @@ app.get("/api/cohorts", (req, res, next) => {
 
 app.post("/api/cohorts", (req, res) => {
   const newcohort = req.body;
-  Recipe.create(newcohort)
+  Cohort.create(newcohort)
     .then((cohortFromDB) => {
       res.status(201).json(cohortFromDB);
     })
@@ -161,7 +160,7 @@ app.post("/api/cohorts", (req, res) => {
 
 app.get("/api/cohorts/:cohortId", (req, res) => {
   const { cohortId } = req.params;
-  Student.findById(cohortId)
+  Cohort.findById(cohortId)
     .then((cohorts) => {
       res.status(200).json(cohorts);
     })
@@ -177,7 +176,7 @@ app.put("/api/cohorts/:cohortId", (req, res) => {
   const { cohortId } = req.params;
   const newDetails = req.body;
 
-  Recipe.findByIdAndUpdate(cohortId, newDetails, { new: true })
+  Cohort.findByIdAndUpdate(cohortId, newDetails, { new: true })
     .then((cohort) => {
       res.status(200).json(cohort);
     })
@@ -193,7 +192,7 @@ app.put("/api/cohorts/:cohortId", (req, res) => {
 
 app.delete("/api/cohorts/:cohortId", (req, res) => {
   const { cohortId } = req.params;
-  Recipe.findByIdAndDelete(cohortId)
+  Cohort.findByIdAndDelete(cohortId)
     .then((response) => {
       res.json(response);
     })
