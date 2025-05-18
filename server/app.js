@@ -8,6 +8,9 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const Cohort = require("./models/Cohort.models");
 const Student = require("./models/Student.models");
+const authRoutes = require('./routes/auth.routes');
+const cohortRoutes = require('./routes/cohort.routes');
+const studentRoutes = require('./routes/student.routes');
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/cohort-tools-api")
@@ -27,7 +30,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({ origin: "http://localhost:5173" }));
 
@@ -42,13 +45,9 @@ app.get("/docs", (req, res) => {
 
 
 //MOUNTING ROUTES
-const studentRouter = require("./routes/student.routes")
-app.use("/",studentRouter)
-
-
-const cohortRouter = require("./routes/cohort.routes")
-app.use("/",cohortRouter)
-
+app.use("/api", require("./routes/student.routes"));
+app.use("/api", require("./routes/cohort.routes"));
+app.use("/auth", require('./routes/auth.routes'));
 
 // START SERVER
 app.listen(PORT, () => {

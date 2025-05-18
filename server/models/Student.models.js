@@ -4,9 +4,21 @@ const Schema = mongoose.Schema;
 
 const studentsSchema = new Schema({
 
-firstName: String,
-lastName: String,
-email: String,
+firstName: {
+  type: String,
+  required: true,
+  unique: true
+},
+lastName: {
+  type: String,
+  required: true,
+  unique: true
+},
+email: {
+  type: String,
+  required: true,
+  unique: true
+},
 phone: String,
 linkedinUrl: String,
 languages:  Array,
@@ -18,6 +30,10 @@ projects:  Array,
         type: mongoose.Schema.Types.ObjectId,
         ref: "cohort",
         required: true
+    },
+    passwordHash:{
+      type: String,
+      required: true
     }
 
 
