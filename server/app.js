@@ -45,8 +45,8 @@ app.get("/docs", (req, res) => {
 
 
 //MOUNTING ROUTES
-app.use("/api", require("./routes/student.routes"));
-app.use("/api", require("./routes/cohort.routes"));
+app.use("/", require("./routes/student.routes"));
+app.use("/", require("./routes/cohort.routes"));
 app.use("/auth", require('./routes/auth.routes'));
 
 // START SERVER
