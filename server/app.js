@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
@@ -11,6 +12,8 @@ const Student = require("./models/Student.models");
 const authRoutes = require('./routes/auth.routes');
 const cohortRoutes = require('./routes/cohort.routes');
 const studentRoutes = require('./routes/student.routes');
+const { isAuthenticated } = require('../middleware/jwt.middleware');
+
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/cohort-tools-api")
@@ -27,6 +30,8 @@ const app = express();
 // MIDDLEWARE
 // Research Team - Set up CORS middleware here:
 // ...
+
+
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("public"));
@@ -45,8 +50,8 @@ app.get("/docs", (req, res) => {
 
 
 //MOUNTING ROUTES
-app.use("/api", require("./routes/student.routes"));
-app.use("/api", require("./routes/cohort.routes"));
+app.use("/", require("./routes/student.routes"));
+app.use("/", require("./routes/cohort.routes"));
 app.use("/auth", require('./routes/auth.routes'));
 
 // START SERVER
