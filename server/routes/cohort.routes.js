@@ -2,6 +2,8 @@ const router = require('express').Router();
 
 const Cohort = require("../models/Cohort.models")
 
+const { isAuthenticated } = require("../middleware/jwt.middleware");
+
 
 // COHORT ROUTES
 router.get("/api/cohorts", (req, res, next) => {
@@ -19,7 +21,7 @@ router.get("/api/cohorts", (req, res, next) => {
 
                   // POST
 
-router.post("/api/cohorts", (req, res) => {
+router.post("/api/cohorts", isAuthenticated, (req, res) => {
   const newcohort = req.body;
   Cohort.create(newcohort)
     .then((cohortFromDB) => {
@@ -49,7 +51,7 @@ router.get("/api/cohorts/:cohortId", (req, res) => {
 
 //PUT
 
-router.put("/api/cohorts/:cohortId", (req, res) => {
+router.put("/api/cohorts/:cohortId", isAuthenticated, (req, res) => {
   const { cohortId } = req.params;
   const newDetails = req.body;
 
@@ -67,7 +69,7 @@ router.put("/api/cohorts/:cohortId", (req, res) => {
 
 //DELETE
 
-router.delete("/api/cohorts/:cohortId", (req, res) => {
+router.delete("/api/cohorts/:cohortId", isAuthenticated, (req, res) => {
   const { cohortId } = req.params;
   Cohort.findByIdAndDelete(cohortId)
     .then((response) => {

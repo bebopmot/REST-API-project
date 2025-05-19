@@ -12,7 +12,7 @@ const Student = require("./models/Student.models");
 const authRoutes = require('./routes/auth.routes');
 const cohortRoutes = require('./routes/cohort.routes');
 const studentRoutes = require('./routes/student.routes');
-const { isAuthenticated } = require('../middleware/jwt.middleware');
+const { isAuthenticated } = require('./middleware/jwt.middleware');
 
 
 mongoose
