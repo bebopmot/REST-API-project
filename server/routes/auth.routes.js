@@ -3,7 +3,8 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User.models");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { isAuthenticated } = require('../middleware/jwt.middleware');
 
 const saltRounds = 10;
 
@@ -90,10 +91,9 @@ router.post('/login', (req, res, next) => {
         const payload = { _id, email, name };
 
         // Create and sign the token
-		console.log("Token Secret:", process.env.TOKEN_SECRET);
         const authToken = jwt.sign(
           payload,
-          `${process.env.TOKEN_SECRET}`,
+          process.env.TOKEN_SECRET,
           { algorithm: 'HS256', expiresIn: "6h" }
         );
 
@@ -110,7 +110,10 @@ router.post('/login', (req, res, next) => {
       res.status(500).json({ message: "Internal Server Error" })
     });
 });
-
+router.get('/verify', isAuthenticated, (req, res, next)=>{
+  console.log('req.payload', req.payload)
+  res.json(req.payload)
+})
 
 
 

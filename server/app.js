@@ -12,6 +12,8 @@ const Student = require("./models/Student.models");
 const authRoutes = require('./routes/auth.routes');
 const cohortRoutes = require('./routes/cohort.routes');
 const studentRoutes = require('./routes/student.routes');
+const User = require("./models/User.models")
+const userRoutes =require("./routes/user.routes")
 const { isAuthenticated } = require('./middleware/jwt.middleware');
 
 
@@ -53,6 +55,7 @@ app.get("/docs", (req, res) => {
 app.use("/", require("./routes/student.routes"));
 app.use("/", require("./routes/cohort.routes"));
 app.use("/auth", require('./routes/auth.routes'));
+app.use("/", require("./routes/user.routes"));
 
 // START SERVER
 app.listen(PORT, () => {
